@@ -1,0 +1,321 @@
+/**
+ * @module pxToRem
+ * @desc px到rem单位的转换,转换规则750px的图片=>根font-size：20px
+ * @param {Number} $pixels 当前像素
+ * @param {Number} $baseFontSize 转换倍率,默认:20
+ * @example @include pxToRem(20);
+ */
+ @function pxToRem($pixels, $context: $baseFontSize) {
+    @if (unitless($pixels)) {
+      $pixels: $pixels * 1px;
+    }
+    @if (unitless($context)) {
+      $context: $context * 1px;
+    }
+    @return $pixels / $context * 1rem;
+  }
+  
+  /**
+   * @module placeholders
+   * @desc input元素改变placeholder的样式
+   * @param {Color} $color 字体颜色,默认:#ddd
+   * @param {Color} $bgcolor 背景颜色,默认:#fff
+   * @example @include placeholders($color,$bgcolor);
+   */
+  @mixin placeholders($color:#ddd, $bgcolor:#fff) {
+    @if $color!=null and $bgcolor!=null {
+      ::-webkit-input-placeholder {
+        color: $placeholderColor;
+        background: $bgcolor;
+      }
+      :-moz-placeholder { /* firefox4-18 */
+        color: $placeholderColor;
+        background: $bgcolor;
+      }
+      ::-moz-placeholder { /* Firefox 19+ */
+        color: $placeholderColor;
+        background: $bgcolor;
+      }
+      :-ms-input-placeholder { /* IE10+ */
+        color: $placeholderColor;
+        background: $bgcolor;
+      }
+    }
+  }
+  
+  /**
+   * @module clearfix
+   * @desc 清除浮动
+   * @example @extend %clearfix;
+   */
+  %clearfix {
+    zoom: 1; /* IE6/7 */
+    &:after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 0;
+      clear: both;
+      visibility: hidden;
+      overflow: hidden;
+      line-height: 0;
+      font-size: 0;
+    }
+  }
+  
+  /**
+   * @module clearfix-over-ie8
+   * 2desc 最新清除浮动（IE8以上)(手机上兼容性待测试，目测可以)
+   * @example @extend %clearfix-over-ie8;
+   */
+  %clearfix-over-ie8 {
+    &:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  }
+  
+  /*
+  * @module flexbox-basic
+  * @desc flex布局，兼容低版本
+  * @example @extend %flexbox-basic;
+  */
+  %flexbox-basic {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+  }
+  
+  /**
+  * @module flexbox-reverse
+  * @desc 倒叙排列
+  */
+  %flexbox-reverse {
+    -webkit-box-orient: horizontal;
+    -moz-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+    -moz-box-direction: reverse;
+    -webkit-flex-direction: row-reverse;
+    -ms-flex-direction: row-reverse;
+    flex-direction: row-reverse;
+  }
+  
+  /*
+  * @module flexbox-item
+  * @desc flex列表项，兼容低版本
+  * @example @extend %flexbox-item;
+  */
+  %flexbox-item {
+    -webkit-box-flex: 1.0;
+    -moz-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  }
+  
+  /*
+  * @module flex-direction-column
+  * @desc flex布局从上到下排列
+  * @example @extend %flex-direction-column;
+  */
+  %flex-direction-column {
+    -webkit-box-direction: normal;
+    -moz-box-orient: vertical; /*Firefox*/
+    -webkit-box-orient: vertical;
+    -ms-box-orient: vertical; /*Firefox*/
+    -o-box-orient: vertical;
+    -moz-flex-direction: column;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    -o-flex-direction: column;
+    flex-direction: column;
+  }
+  
+  /*
+  * @module flex-direction-row
+  * @desc flex布局从左到右排列
+  * @example @extend %flex-direction-row;
+  */
+  %flex-direction-row {
+    -webkit-box-direction: normal;
+    -moz-box-orient: horizontal; /*Firefox*/
+    -webkit-box-orient: horizontal;
+    -ms-box-orient: horizontal; /*Firefox*/
+    -o-box-orient: horizontal;
+    -moz-flex-direction: row;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    -o-flex-direction: row;
+    flex-direction: row;
+  }
+  
+  /*
+  * @module align-item-center
+  * @desc 垂直居中对齐
+  * @example @extends %align-item-center;
+  */
+  %align-item-center {
+    -webkit-box-align: center;
+    -moz-align-items: center;
+    -webkit-align-items: center;
+    -ms-align-items: center;
+    -o-align-items: center;
+    align-items: center;
+  }
+  
+  /*
+  * @module align-item-bottom
+  * @desc 垂直底部对齐
+  * @example @extends %align-item-bottom;
+  */
+  %align-item-bottom {
+    -webkit-box-align: end;
+    -moz-align-items: flex-end;
+    -webkit-align-items: flex-end;
+    -ms-align-items: flex-end;
+    -o-align-items: flex-end;
+    align-items: flex-end;
+  }
+  
+  /*
+  * @module justify-content-center
+  * @desc 水平居中对齐
+  * @example @extends %align-item-bottom;
+  */
+  %justify-content-center {
+    -webkit-box-pack: center;
+    -moz-justify-content: center;
+    -webkit-justify-content: center;
+    -ms-justify-content: center;
+    -o-justify-content: center;
+    justify-content: center;
+  }
+  
+  /**
+  * @module flexbox
+  * @desc flexbox全局调用
+  * @param $item   {String}    当前定宽的类名   默认.flex
+  * @param $width  {String}    默认值：null
+  * @detail 如果item定宽，传递$width
+  * @example @include flexbox();
+  */
+  @mixin flexbox($item:flex,$width: null) {
+    @extend %flexbox-basic;
+    @if (($item !=null) & & ($width!=null)) {
+      .#{$item} {
+        width: $width;
+      }
+    } @else {
+      .#{$item} {
+        @extend %flexbox-item;
+      }
+    }
+  }
+  
+  /*
+  * @module align
+  * @desc 垂直水平居中
+  * @example @extend %align;
+  */
+  %align {
+    @extend %flexbox-basic;
+    @extend %justify-content-center;
+    @extend %align-item-center;
+  }
+  
+  /**
+  * @module ellipsis
+  * @desc 当行文本或者多行文本溢出隐藏
+  * @param $width {String} 默认 null
+  * @param {Number} $line-clamp 显示行数,默认：1
+  * @example @include ellipsis();
+  */
+  @mixin ellipsis($width: null,$line-clamp: 1) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    @if ($width!=null) {
+      width: $width;
+    }
+    @if abs($line-clamp)>1 {
+      display: -webkit-box !important;
+      -webkit-line-clamp: $line-clamp;
+      @extend %flex-direction-column;
+    } @else {
+      white-space: nowrap;
+    }
+  }
+  
+  /*
+  * @module border
+  * @desc 1px边框问题
+  * @params {String} $position 边框的位置,默认：bottom
+  * @params {Color} $color 边框的颜色,默认：#ddd
+  * @example @include border();
+  */
+  @mixin border($position:bottom,$color:#ddd) {
+    &:after {
+      width: 100%;
+      display: block;
+      content: '';
+      height: 1px;
+      background-color: $color;
+      transform-origin: 0 0;
+      -webkit-transform-origin: 0 0;
+    }
+    @media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
+      &:after {
+        -webkit-transform: scaleY(0.7);
+        border-color: #ff6b23;
+        transform: scaleY(0.7);
+      }
+    }
+    @media only screen and (-webkit-min-device-pixel-ratio: 2.0) {
+      &:after {
+        -webkit-transform: scaleY(0.5);
+        transform: scaleY(0.5);
+        border-color: #000000;
+      }
+    }
+    @media only screen and (-webkit-min-device-pixel-ratio: 3.0) {
+      &:after {
+        -webkit-transform: scaleY(0.3333);
+        transform: scaleY(0.3333);
+      }
+    }
+  }
+  
+  /*
+  * @module linear-gradient
+  * @desc 线性渐变
+  * @params {Color} $startColor 渐变初始颜色，默认：#ff6b23
+  * @params {Color} $endColor 渐变结束颜色,默认：#000
+  * @params {String} $positoin  渐变方向，默认：top
+  * @params {String} $perStart  渐变开始位置，默认0%
+  * @params {String} $perEnd  渐变结束位置，默认100%
+  * @example @include linear-gradient();
+  */
+  @mixin linear-gradient($startColor:#ff6b23,$endColor:#000,$position:top,$perStart:0%, $perEnd:100%) {
+    background: -webkit-linear-gradient($position, $startColor, $endColor); /* Webkit browsers */
+    background: -moz-linear-gradient($position, $startColor, $endColor); /* Firefox(old) */
+    background: -o-linear-gradient($position, $startColor, $endColor); /* Opera(old) */
+    background: -ms-linear-gradient($position, $startColor $perStart, $endColor $perEnd); /* IE10 */
+    background: linear-gradient($position, $startColor $perStart, $endColor $perEnd); /* W3C */
+  }
+  
+  %overflow {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  @mixin shape($width:null,$height:null,$border-radius:null) {
+    @if $width!=null and $height!=null {
+      width: $width;
+      height: $height;
+    }
+    @if $border-radius!=null {
+      border-radius: $border-radius;
+    }
+  }

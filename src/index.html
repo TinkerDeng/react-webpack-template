@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        app
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="full-screen" content="true" />
+    <meta name="screen-orientation" content="portrait" />
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="360-fullscreen" content="true" />
+    <link rel="icon" href="http://img1.rrcimg.com/dist/pc/images/favicon-60ac45c9.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="http://img1.rrcimg.com/dist/pc/images/favicon-60ac45c9.ico" type="image/x-icon" />
+    <script>
+        //动态适配分辨率
+        var docEl = document.documentElement;
+        var resizeEvt = "orientationchange" in window ? "orientationchange" : "resize";
+        var recalc = function () {
+            var clientWidth = docEl.clientWidth;
+            if (!clientWidth) return;
+            if (clientWidth < 320) {
+                clientWidth = 320;
+            } else if (clientWidth > 750) {
+                clientWidth = 750;
+            }
+            docEl.style.fontSize = Math.floor(10 * (clientWidth / 375)) + "px";
+        };
+        window.addEventListener(resizeEvt, recalc, false);
+        recalc();
+    </script>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vConsole/3.2.0/vconsole.min.js"></script>
+    </script>
+    <script>
+        var vConsole = new VConsole();
+    </script>
+</body>
+
+</html>
