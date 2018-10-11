@@ -9,3 +9,5 @@ __proto__.md
 md
 .history
 dll
+typings.json
+typings/
