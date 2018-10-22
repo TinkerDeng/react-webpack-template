@@ -1,7 +1,7 @@
 {
-  "name": "{{name}}",
+  "name": "react",
   "version": "1.0.0",
-  "description": "{{description}}",
+  "description": "a react template",
   "main": "src/index.js",
   "scripts": {
     "start": "webpack-dev-server --mode development",
@@ -13,7 +13,7 @@
     "url": "https://gitlab.renrenche.com/finance/finance-h5"
   },
   "keywords": [],
-  "author": "{{author}}",
+  "author": "dfc",
   "license": "ISC",
   "bugs": {
     "url": "https://gitlab.renrenche.com/finance/finance-h5/issues"
